@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MBM Media and Advertising LLC – Premium branding, signage, printing, and advertising solutions in Dubai, UAE." />
+  <title>MBM Media & Advertising LLC | Dubai's Premium Branding Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES — DESIGN TOKENS
+    ============================================= */
+    :root {
+      /* Premium Warm Gold Palette */
+      --primary-gold: #AA9868;
+      --gold-light: #C7B58A;
+      --gold-dark: #8D7A4F;
+      
+      /* Neutral Tones */
+      --white: #F2F2F2;
+      --light-gray: #D9D9D9;
+      
+      /* Dark Backgrounds */
+      --black: #0A0A0A;
+      --dark-bg: #111111;
+      --card-bg: #1A1A1A;
+      
+      /* Accent (optional luxury) */
+      --accent-red: #C8102E;
+      
+      /* Derived Variables for Compatibility */
+      --gold: #AA9868;
+      --gold-light-alt: #C7B58A;
+      --white-dim: rgba(242,242,242,0.65);
+      --glass-bg: rgba(255,255,255,0.03);
+      --glass-border: rgba(170,152,104,0.15);
+      --glow-gold: 0 0 32px rgba(170,152,104,0.35);
+      --glow-red: 0 0 24px rgba(200,16,46,0.25);
+      
+      /* Fonts */
+      --font-display:'Playfair Display', Georgia, serif;
+      --font-head:   'Barlow Condensed', sans-serif;
+      --font-body:   'Barlow', sans-serif;
+      --ease-out:    cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body {
+      background: var(--dark-bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; width:100%; object-fit:cover; }
+    ul { list-style:none; }
+    button { cursor:none; }
+
+    /* =============================================
+       CUSTOM CURSOR
+    ============================================= */
+    #cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .15s, height .15s, background .15s;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 38px; height: 38px;
+      border: 1.5px solid rgba(212,160,23,0.55);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: all .35s var(--ease-out);
+    }
+    body:has(a:hover) #cursor, body:has(button:hover) #cursor {
+      width: 20px; height: 20px;
+      background: var(--primary-gold);
+    }
+    body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring {
+      width: 55px; height: 55px;
+      border-color: rgba(170,152,104,0.4);
+    }
+
+    /* =============================================
+       LOADER
+    ============================================= */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--dark-bg);
+      z-index: 10000;
+      display: flex; align-items:center; justify-content:center;
+      flex-direction:column; gap:24px;
+      transition: opacity .4s, visibility .4s;
+    }
+    #loader.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+    .loader-logo {
+      font-family: var(--font-head);
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: var(--white);
+    }
+    .loader-logo span { color: var(--primary-gold); }
+    .loader-bar-wrap {
+      width: 220px; height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-gold), var(--gold-light));
+      width: 0%;
+      animation: loaderFill 0.7s var(--ease-out) forwards;
+    }
+    @keyframes loaderFill { to { width:100%; } } @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} } @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:translateY(0)} }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    nav {
+      position: fixed; top:0; left:0; right:0;
+      z-index: 800;
+      padding: 0 5%;
+      height: 72px;
+      display: flex; align-items:center; justify-content:space-between;
+      transition: background .4s, backdrop-filter .4s, border-bottom .4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .nav-logo {
+      display:flex; align-items:center; gap:12px;
+    }
+    .nav-logo-mark {
+      width:38px; height:38px;
+      background: linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-head);
+      font-weight:800; font-size:1rem;
+      letter-spacing:0.05em;
+      color:#fff;
+      border-radius:4px;
+    }
+    .nav-logo-text {
+      font-family:var(--font-head);
+      font-weight:700;
+      font-size:1.05rem;
+      letter-spacing:0.18em;
+      line-height:1.15;
+    }
+    .nav-logo-text small {
+      display:block;
+      font-size:0.6rem;
+      letter-spacing:0.32em;
+      color:var(--white-dim);
+      font-weight:400;
+    }
+    .nav-links {
+      display:flex; gap:36px; align-items:center;
+    }
+    .nav-links a {
+      font-family:var(--font-head);
+      font-size:0.82rem;
+      letter-spacing:0.18em;
+      font-weight:600;
+      color:var(--white-dim);
+      transition: color .25s;
+      text-transform:uppercase;
+    }
+    .nav-links a:hover { color:var(--primary-gold); }
+    .nav-cta {
+      padding:9px 22px;
+      border:1.5px solid var(--primary-gold);
+      color:var(--white) !important;
+      background: transparent;
+      transition: background .25s, box-shadow .25s !important;
+    }
+    .nav-cta:hover {
+      background: var(--primary-gold) !important;
+      box-shadow: var(--glow-gold) !important;
+    }
+    .hamburger {
+      display:none;
+      flex-direction:column; gap:5px;
+      background:none; border:none; padding:4px;
+    }
+    .hamburger span {
+      display:block; width:26px; height:2px;
+      background:var(--white);
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* mobile nav */
+    .mobile-nav {
+      display:none;
+      position:fixed; inset:0; top:72px;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter:blur(20px);
+      z-index:799;
+      flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:36px;
+      transform: translateX(100%);
+      transition: transform .45s var(--ease-out);
+    }
+    .mobile-nav.open { transform:translateX(0); }
+    .mobile-nav a {
+      font-family:var(--font-head);
+      font-size:2.2rem;
+      font-weight:700;
+      letter-spacing:0.14em;
+      color:var(--white-dim);
+      transition:color .2s;
+    }
+    .mobile-nav a:hover { color:var(--primary-gold); }
+
+    /* =============================================
+       SECTION WRAPPER UTILITY
+    ============================================= */
+    section { position:relative; overflow:hidden; }
+    .container { max-width:1240px; margin:0 auto; padding:0 5%; }
+    .section-tag {
+      font-family:var(--font-head);
+      font-size:0.72rem;
+      letter-spacing:0.35em;
+      color:var(--primary-gold);
+      text-transform:uppercase;
+      margin-bottom:14px;
+      display:inline-flex; align-items:center; gap:10px;
+    }
+    .section-tag::before {
+      content:'';
+      display:inline-block;
+      width:28px; height:1.5px;
+      background:var(--primary-gold);
+    }
+    .section-title {
+      font-family:var(--font-display);
+      font-size:clamp(2.4rem,4.5vw,4rem);
+      font-weight:700;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+    .section-sub {
+      font-size:1.05rem;
+      color:var(--white-dim);
+      max-width:540px;
+      line-height:1.7;
+    }
+    .gold { color:var(--primary-gold); }
+    .red { color:var(--accent-red); }
+
+    /* scroll reveal */
+    .reveal {
+      opacity:0;
+      transform:translateY(44px);
+      transition: opacity .85s var(--ease-out), transform .85s var(--ease-out);
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-delay-1 { transition-delay:.1s; }
+    .reveal-delay-2 { transition-delay:.2s; }
+    .reveal-delay-3 { transition-delay:.3s; }
+    .reveal-delay-4 { transition-delay:.4s; }
+    .reveal-delay-5 { transition-delay:.5s; }
+    .reveal-delay-6 { transition-delay:.6s; }
+
+    /* =============================================
+       1. HERO
+    ============================================= */
+    #hero {
+      height:100vh; min-height:700px;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center;
+      background: var(--dark-bg);
+    }
+    .hero-canvas {
+      position:absolute; inset:0;
+      overflow:hidden;
+    }
+    /* Gradient overlay */
+    .hero-canvas::before {
+      content:'';
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(200,16,46,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 40% at 80% 20%, rgba(212,160,23,0.08) 0%, transparent 60%),
+                  linear-gradient(180deg, rgba(6,6,8,0) 0%, rgba(6,6,8,0.75) 100%);
+      z-index:2;
+    }
+    /* Grid lines */
+    .hero-canvas::after {
+      content:'';
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size:60px 60px;
+      z-index:1;
+      animation: gridDrift 18s linear infinite;
+    }
+    @keyframes gridDrift { from{background-position:0 0} to{background-position:60px 60px} }
+
+    /* Dubai skyline silhouette */
+    .hero-skyline {
+      position:absolute; bottom:0; left:0; right:0; z-index:2;
+      height:260px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 260' preserveAspectRatio='none'%3E%3Cpath fill='%230d0d10' opacity='0.92' d='M0,260 L0,200 L20,200 L20,180 L40,180 L40,160 L60,160 L60,150 L70,150 L70,100 L80,100 L80,120 L90,120 L90,150 L100,150 L100,200 L120,200 L120,160 L130,160 L130,120 L135,120 L135,80 L145,80 L145,120 L150,120 L150,160 L170,160 L170,200 L190,200 L190,170 L200,170 L200,130 L210,130 L210,90 L215,90 L215,60 L220,60 L220,20 L225,20 L225,10 L230,10 L230,20 L235,20 L235,60 L240,60 L240,90 L245,90 L245,130 L255,130 L255,170 L260,170 L260,200 L280,200 L280,210 L300,210 L300,180 L310,180 L310,155 L318,155 L318,140 L325,140 L325,155 L332,155 L332,180 L340,180 L340,210 L360,210 L360,200 L380,200 L380,170 L385,170 L385,140 L390,140 L390,110 L395,110 L395,80 L400,80 L400,50 L405,50 L405,30 L410,30 L410,50 L415,50 L415,80 L420,80 L420,110 L425,110 L425,140 L430,140 L430,170 L435,170 L435,200 L460,200 L460,180 L470,180 L470,155 L480,155 L480,130 L488,130 L488,105 L495,105 L495,130 L502,130 L502,155 L510,155 L510,180 L520,180 L520,200 L540,200 L540,210 L560,210 L560,185 L570,185 L570,160 L580,160 L580,135 L590,135 L590,110 L600,110 L600,85 L605,85 L605,55 L610,55 L610,30 L614,30 L614,15 L618,15 L618,0 L622,0 L622,15 L626,15 L626,30 L630,30 L630,55 L635,55 L635,85 L640,85 L640,110 L650,110 L650,135 L660,135 L660,160 L670,160 L670,185 L680,185 L680,210 L700,210 L700,200 L720,200 L720,175 L730,175 L730,150 L740,150 L740,175 L750,175 L750,200 L770,200 L770,210 L790,210 L790,185 L800,185 L800,160 L810,160 L810,140 L820,140 L820,120 L830,120 L830,100 L838,100 L838,80 L848,80 L848,100 L858,100 L858,120 L868,120 L868,140 L878,140 L878,160 L888,160 L888,185 L895,185 L895,210 L920,210 L920,200 L940,200 L940,175 L950,175 L950,150 L960,150 L960,130 L968,130 L968,110 L975,110 L975,130 L982,130 L982,150 L990,150 L990,175 L1000,175 L1000,200 L1020,200 L1020,210 L1040,210 L1040,190 L1050,190 L1050,165 L1060,165 L1060,140 L1070,140 L1070,115 L1078,115 L1078,90 L1086,90 L1086,65 L1090,65 L1090,40 L1094,40 L1094,20 L1098,20 L1098,5 L1102,5 L1102,20 L1106,20 L1106,40 L1110,40 L1110,65 L1114,65 L1114,90 L1122,90 L1122,115 L1130,115 L1130,140 L1140,140 L1140,165 L1150,165 L1150,190 L1160,190 L1160,210 L1180,210 L1180,200 L1200,200 L1200,175 L1210,175 L1210,155 L1220,155 L1220,135 L1230,135 L1230,115 L1240,115 L1240,135 L1250,135 L1250,155 L1260,155 L1260,175 L1270,175 L1270,200 L1300,200 L1300,210 L1320,210 L1320,190 L1330,190 L1330,170 L1340,170 L1340,190 L1350,190 L1350,210 L1380,210 L1380,200 L1400,200 L1400,220 L1440,220 L1440,260 Z'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat;
+    }
+
+    .particles-container {
+      position:absolute; inset:0; z-index:3; overflow:hidden;
+    }
+    .particle {
+      position:absolute;
+      width:2px; height:2px;
+      background:var(--gold);
+      border-radius:50%;
+      animation:particleFly linear infinite;
+      opacity:0;
+      will-change:transform,opacity;
+    }
+    @keyframes particleFly {
+      0%  { opacity:0; transform:translateY(0) scale(1); }
+      10% { opacity:1; }
+      90% { opacity:.5; }
+      100%{ opacity:0; transform:translateY(-500px) scale(0.3); }
+    }
+
+    .hero-content {
+      position:relative; z-index:10;
+      max-width:900px; padding:0 24px;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:9px;
+      background:rgba(170,152,104,0.12);
+      border:1px solid rgba(170,152,104,0.35);
+      padding:7px 18px;
+      border-radius:99px;
+      font-family:var(--font-head);
+      font-size:0.72rem;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      color:var(--primary-gold);
+      margin-bottom:28px;
+      animation: fadeDown .45s var(--ease-out) .15s both;
+    }
+    .hero-badge::before {
+      content:''; width:7px; height:7px;
+      background:var(--primary-gold); border-radius:50%;
+      animation:pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%,100%{box-shadow:0 0 0 0 rgba(212,160,23,0.7)}
+      50%{box-shadow:0 0 0 8px rgba(212,160,23,0)}
+    }
+    .hero-title {
+      font-family:var(--font-display);
+      font-size:clamp(2.8rem,6vw,5.8rem);
+      font-weight:900;
+      line-height:1.05;
+      margin-bottom:10px;
+      animation: fadeDown .5s var(--ease-out) .25s both;
+    }
+    .hero-title em {
+      font-style:italic;
+      background:linear-gradient(135deg,var(--primary-gold),var(--gold-light));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .hero-title-line2 {
+      display:block;
+      font-family:var(--font-head);
+      font-size:clamp(1.1rem,2.2vw,1.9rem);
+      font-weight:300;
+      letter-spacing:0.28em;
+      color:var(--white-dim);
+      margin-bottom:18px;
+      text-transform:uppercase;
+      animation: fadeDown .5s var(--ease-out) .3s both;
+    }
+    .hero-sub {
+      font-size:clamp(1rem,1.6vw,1.2rem);
+      color:var(--white-dim);
+      max-width:580px; margin:0 auto 40px;
+      line-height:1.7;
+      animation: fadeUp .5s var(--ease-out) .35s both;
+    }
+    .hero-btns {
+      display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+      animation: fadeUp .5s var(--ease-out) .4s both;
+    }
+    .btn-primary {
+      padding:15px 38px;
+      background:linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      color:#000;
+      font-family:var(--font-head);
+      font-weight:700; font-size:0.85rem;
+      letter-spacing:0.2em; text-transform:uppercase;
+      border:none; border-radius:2px;
+      box-shadow: 0 0 0 0 rgba(170,152,104,0);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .btn-primary:hover {
+      transform:translateY(-3px);
+      box-shadow: var(--glow-gold);
+    }
+    .btn-outline {
+      padding:14px 38px;
+      border:1.5px solid rgba(242,242,242,0.35);
+      color:var(--white);
+      font-family:var(--font-head);
+      font-weight:600; font-size:0.85rem;
+      letter-spacing:0.2em; text-transform:uppercase;
+      background:transparent; border-radius:2px;
+      transition: border-color .25s, color .25s, transform .25s;
+    }
+    .btn-outline:hover {
+      border-color:var(--primary-gold);
+      color:var(--primary-gold);
+      transform:translateY(-3px);
+    }
+    .hero-scroll {
+      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+      z-index:10;
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      animation:fadeUp .6s var(--ease-out) .6s both;
+    }
+    .hero-scroll span {
+      font-family:var(--font-head);
+      font-size:0.65rem;
+      letter-spacing:0.3em;
+      color:var(--white-dim);
+      text-transform:uppercase;
+    }
+    .scroll-line {
+      width:1.5px; height:50px;
+      background:linear-gradient(to bottom, var(--primary-gold), transparent);
+      animation:scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:.4; transform:scaleY(1)} 50%{opacity:1; transform:scaleY(1.1)} }
+
+
+
+    /* =============================================
+       2. ABOUT
+    ============================================= */
+    #about {
+      padding:130px 0 110px;
+      background: linear-gradient(180deg,var(--dark-bg) 0%,var(--card-bg) 100%);
+    }
+    .about-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:80px; align-items:center;
+    }
+    .about-visual {
+      position:relative;
+    }
+    /* Image container - Premium responsive frame */
+    .about-img-wrap {
+      width:100%; 
+      aspect-ratio:4/5;
+      background:linear-gradient(135deg, rgba(10,10,10,0.5), rgba(26,26,26,0.8));
+      border:1px solid var(--glass-border);
+      position:relative; 
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+      box-sizing:border-box;
+      box-shadow:inset 0 0 32px rgba(170,152,104,0.08), 0 4px 28px rgba(0,0,0,0.4);
+      border-radius:2px;
+      transition:box-shadow 0.4s ease;
+    }
+    .about-img-wrap:hover {
+      box-shadow:inset 0 0 40px rgba(170,152,104,0.15), 0 8px 40px rgba(170,152,104,0.1);
+    }
+    /* Image optimization - contains full image without cropping */
+    .about-img-wrap img.placeholder-img {
+      width:100%; 
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      opacity:0.85;
+      filter:grayscale(20%);
+      transition:opacity 0.4s ease, filter 0.4s ease;
+    }
+    /* Hover effect */
+    .about-img-wrap img.placeholder-img:hover {
+      opacity:1;
+      filter:grayscale(0%);
+    }
+    .about-img-wrap .img-placeholder-label {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:12px;
+      background:linear-gradient(135deg,rgba(10,10,10,0.6),rgba(170,152,104,0.08));
+      opacity:0;
+      transition:opacity 0.3s ease;
+    }
+    .about-img-wrap:hover .img-placeholder-label {
+      opacity:0;
+    }
+    .about-img-wrap .img-placeholder-label span {
+      font-family:var(--font-head);
+      font-size:0.72rem; letter-spacing:0.25em;
+      color:var(--white-dim);
+      text-transform:uppercase;
+    }
+    .about-img-wrap .img-placeholder-label svg {
+      opacity:.3; width:56px; height:56px;
+    }
+    .about-badge-float {
+      position:absolute; bottom:-24px; right:-24px;
+      width:130px; height:130px;
+      background:linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      border-radius:50%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      box-shadow:var(--glow-gold);
+      animation:floatBob 4s ease-in-out infinite;
+    }
+    .about-badge-float strong {
+      font-family:var(--font-head);
+      font-size:2.4rem; font-weight:800;
+      line-height:1;
+    }
+    .about-badge-float span {
+      font-size:0.65rem; letter-spacing:0.15em;
+      text-transform:uppercase; color:rgba(255,255,255,0.75);
+    }
+    @keyframes floatBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .about-stripe {
+      position:absolute; top:30px; left:-30px;
+      width:7px; height:70%;
+      background:linear-gradient(to bottom,var(--primary-gold),transparent);
+      border-radius:4px;
+    }
+
+    .about-text {}
+    .about-text p {
+      font-size:1.05rem; line-height:1.75;
+      color:var(--white-dim);
+      margin-bottom:24px;
+    }
+    .counters-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:2px; margin-top:44px;
+      border:1px solid var(--glass-border);
+      background:var(--glass-border);
+    }
+    .counter-cell {
+      background:var(--glass-bg);
+      padding:28px 20px;
+      text-align:center;
+      transition:background .3s;
+    }
+    .counter-cell:hover { background:rgba(170,152,104,0.07); }
+    .counter-num {
+      font-family:var(--font-head);
+      font-size:2.8rem; font-weight:800;
+      color:var(--primary-gold);
+      display:block; line-height:1;
+    }
+    .counter-label {
+      font-family:var(--font-head);
+      font-size:0.72rem; letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--white-dim);
+      margin-top:6px; display:block;
+    }
+
+    /* =============================================
+       3. SERVICES
+    ============================================= */
+    #services {
+      padding:120px 0;
+      background:var(--dark-bg);
+    }
+    .services-header {
+      max-width:640px; margin-bottom:68px;
+    }
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:1.5px;
+      background:var(--glass-border);
+      border:1px solid var(--glass-border);
+    }
+    .service-card {
+      background:var(--card-bg);
+      padding:44px 36px;
+      position:relative;
+      overflow:hidden;
+      transition:transform .35s var(--ease-out);
+    }
+    .service-card::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0;
+      height:2px;
+      background:linear-gradient(90deg,var(--primary-gold),var(--gold-light),transparent);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .45s var(--ease-out);
+    }
+    .service-card::after {
+      content:'';
+      position:absolute; inset:0;
+      background:radial-gradient(circle at 50% 0%,rgba(170,152,104,0.08) 0%,transparent 65%);
+      opacity:0;
+      transition:opacity .35s;
+    }
+    .service-card:hover { transform:translateY(-4px); }
+    .service-card:hover::before { transform:scaleX(1); }
+    .service-card:hover::after { opacity:1; }
+    .service-icon {
+      width:54px; height:54px;
+      background:rgba(170,152,104,0.1);
+      border:1px solid rgba(170,152,104,0.22);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:24px;
+      color:var(--primary-gold);
+      transition:background .3s, box-shadow .3s;
+    }
+    .service-card:hover .service-icon {
+      background:rgba(170,152,104,0.18);
+      box-shadow:var(--glow-gold);
+    }
+    .service-icon svg { width:26px; height:26px; }
+    .service-num {
+      position:absolute; top:24px; right:28px;
+      font-family:var(--font-head);
+      font-size:4rem; font-weight:800;
+      color:rgba(255,255,255,0.04);
+      line-height:1;
+      transition:color .35s;
+    }
+    .service-card:hover .service-num { color:rgba(170,152,104,0.08); }
+    .service-name {
+      font-family:var(--font-head);
+      font-size:1.35rem; font-weight:700;
+      letter-spacing:0.04em;
+      margin-bottom:12px;
+    }
+    .service-desc {
+      font-size:0.92rem; line-height:1.65;
+      color:var(--white-dim);
+    }
+    .service-arrow {
+      margin-top:22px;
+      font-family:var(--font-head);
+      font-size:0.72rem;
+      letter-spacing:0.2em;
+      color:var(--primary-gold);
+      text-transform:uppercase;
+      opacity:0;
+      transform:translateX(-8px);
+      transition:opacity .3s, transform .3s;
+      display:flex; align-items:center; gap:8px;
+    }
+    .service-card:hover .service-arrow { opacity:1; transform:translateX(0); }
+
+    /* =============================================
+       4. PORTFOLIO
+    ============================================= */
+    #portfolio {
+      padding:120px 0;
+      background:var(--card-bg);
+    }
+    .portfolio-header { margin-bottom:48px; }
+    .portfolio-filters {
+      display:flex; gap:4px; flex-wrap:wrap;
+      margin-bottom:44px;
+    }
+    .filter-btn {
+      padding:9px 22px;
+      background:transparent;
+      border:1px solid var(--glass-border);
+      color:var(--white-dim);
+      font-family:var(--font-head);
+      font-size:0.78rem;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      transition:all .25s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background:var(--primary-gold);
+      border-color:var(--primary-gold);
+      color:#000;
+    }
+    .portfolio-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5px;
+      background:var(--glass-border);
+    }
+    .portfolio-item {
+      position:relative; overflow:hidden;
+      aspect-ratio:4/3;
+      background:var(--glass-bg);
+      cursor:pointer;
+    }
+    /* tall hero cards */
+    .portfolio-item.tall { aspect-ratio:4/5; grid-row:span 2; }
+
+    /* ← REPLACE src WITH YOUR IMAGELINK HERE */
+    .portfolio-item .p-img {
+      width:100%; height:100%;
+      object-fit:cover;
+      transition:transform .55s var(--ease-out), filter .55s;
+      filter:brightness(.75) saturate(.85);
+    }
+    .portfolio-item:hover .p-img {
+      transform:scale(1.07);
+      filter:brightness(.55) saturate(1);
+    }
+    .portfolio-placeholder {
+      width:100%; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:12px;
+      background:linear-gradient(135deg,var(--dark-bg),var(--card-bg));
+      color:var(--white-dim);
+    }
+    .portfolio-placeholder svg { width:38px; height:38px; opacity:.25; }
+    .portfolio-placeholder span {
+      font-family:var(--font-head);
+      font-size:0.65rem; letter-spacing:0.25em;
+      text-transform:uppercase; opacity:.4;
+    }
+    .p-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(10,10,10,0.9) 0%,rgba(10,10,10,0) 55%);
+      display:flex; flex-direction:column; justify-content:flex-end;
+      padding:28px;
+      opacity:0;
+      transition:opacity .4s;
+    }
+    .portfolio-item:hover .p-overlay { opacity:1; }
+    .p-cat {
+      font-family:var(--font-head);
+      font-size:0.65rem; letter-spacing:0.25em;
+      color:var(--primary-gold);
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    .p-title {
+      font-family:var(--font-head);
+      font-size:1.25rem; font-weight:700;
+      line-height:1.2; color:#fff;
+    }
+    .p-desc {
+      font-size:0.82rem; color:var(--white-dim);
+      margin-top:6px;
+    }
+    .p-zoom {
+      position:absolute; top:18px; right:18px;
+      width:40px; height:40px;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(8px);
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-size:1.2rem;
+      transform:scale(0); opacity:0;
+      transition:transform .3s var(--ease-out), opacity .3s;
+    }
+    .portfolio-item:hover .p-zoom { transform:scale(1); opacity:1; }
+
+    /* Lightbox */
+    #lightbox {
+      position:fixed; inset:0;
+      background:rgba(0,0,0,0.92);
+      backdrop-filter:blur(16px);
+      z-index:900;
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; visibility:hidden;
+      transition:opacity .35s, visibility .35s;
+    }
+    #lightbox.open { opacity:1; visibility:visible; }
+    .lb-inner {
+      position:relative; max-width:900px; width:90%;
+      max-height:85vh;
+    }
+    .lb-inner img {
+      width:100%; height:auto;
+      max-height:80vh; object-fit:contain;
+      border:1px solid var(--glass-border);
+    }
+    .lb-close {
+      position:absolute; top:-50px; right:0;
+      background:none; border:none;
+      color:var(--white); font-size:2rem;
+      line-height:1;
+    }
+
+    /* =============================================
+       5. AI MOCKUP SECTION
+    ============================================= */
+    #ai-mockup {
+      padding:120px 0;
+      background:var(--dark-bg);
+    }
+    .ai-inner {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:center;
+    }
+    .ai-text {}
+    .ai-text p { font-size:1rem; color:var(--white-dim); line-height:1.7; margin-bottom:20px; }
+    .ai-steps {
+      margin-top:44px;
+      display:flex; flex-direction:column; gap:0;
+    }
+    .ai-step {
+      display:flex; gap:20px; align-items:flex-start;
+      padding:20px 0;
+      border-bottom:1px solid var(--glass-border);
+      position:relative;
+    }
+    .ai-step:last-child { border-bottom:none; }
+    .ai-step-num {
+      flex-shrink:0;
+      width:44px; height:44px;
+      background:linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-head);
+      font-weight:800; font-size:1.1rem;
+      border-radius:2px;
+      box-shadow:var(--glow-gold);
+    }
+    .ai-step-body {}
+    .ai-step-body h4 {
+      font-family:var(--font-head);
+      font-size:1.05rem; font-weight:700;
+      letter-spacing:0.06em;
+      margin-bottom:5px;
+    }
+    .ai-step-body p { font-size:0.88rem; color:var(--white-dim); margin:0; }
+
+    .ai-visual {
+      position:relative;
+    }
+    .ai-visual-frame {
+      background:var(--glass-bg);
+      border:1px solid var(--glass-border);
+      padding:28px;
+      position:relative;
+    }
+    .ai-phone-mock {
+      background:#111;
+      border-radius:28px;
+      overflow:hidden;
+      border:6px solid #222;
+      max-width:260px; margin:0 auto;
+      box-shadow:0 40px 80px rgba(0,0,0,0.6);
+    }
+    .ai-phone-top {
+      height:28px; background:#111;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .ai-phone-notch {
+      width:80px; height:18px;
+      background:#000; border-radius:0 0 14px 14px;
+    }
+    .ai-phone-screen {
+      background:#0d0d10; min-height:380px;
+      padding:16px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .chat-bubble {
+      max-width:80%; padding:10px 14px;
+      border-radius:12px;
+      font-size:0.75rem; line-height:1.45;
+      animation:bubblePop .4s var(--ease-out) both;
+    }
+    .chat-bubble.received {
+      background:rgba(255,255,255,0.08);
+      align-self:flex-start;
+      border-bottom-left-radius:2px;
+      color:var(--white);
+    }
+    .chat-bubble.sent {
+      background:linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      align-self:flex-end;
+      border-bottom-right-radius:2px;
+      color:#000;
+    }
+    @keyframes bubblePop { from{opacity:0;transform:scale(.92) translateY(6px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    .chat-bubble.delay-1 { animation-delay:.3s; }
+    .chat-bubble.delay-2 { animation-delay:.7s; }
+    .chat-bubble.delay-3 { animation-delay:1.1s; }
+
+    .ai-float-badge {
+      position:absolute; top:-18px; right:-18px;
+      background:var(--primary-gold);
+      color:var(--black);
+      padding:10px 18px;
+      font-family:var(--font-head);
+      font-size:0.72rem; font-weight:800;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      animation:floatBob 3s ease-in-out infinite;
+    }
+
+    /* =============================================
+       6. WHY CHOOSE US
+    ============================================= */
+    #why {
+      padding:120px 0;
+      background:linear-gradient(180deg,var(--card-bg) 0%,var(--dark-bg) 100%);
+    }
+    .why-header { text-align:center; max-width:640px; margin:0 auto 72px; }
+    .why-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5px; background:var(--glass-border);
+    }
+    .why-card {
+      background:var(--card-bg); padding:44px 32px;
+      text-align:center;
+      transition:background .3s;
+      position:relative; overflow:hidden;
+    }
+    .why-card::after {
+      content:'';
+      position:absolute; bottom:0; left:0; right:0;
+      height:2px;
+      background:linear-gradient(90deg,transparent,var(--primary-gold),transparent);
+      transform:scaleX(0);
+      transition:transform .45s var(--ease-out);
+    }
+    .why-card:hover { background:rgba(170,152,104,0.05); }
+    .why-card:hover::after { transform:scaleX(1); }
+    .why-icon {
+      width:64px; height:64px; margin:0 auto 24px;
+      background:rgba(170,152,104,0.08);
+      border:1px solid rgba(170,152,104,0.18);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--primary-gold);
+      transition:box-shadow .3s, background .3s;
+      border-radius:2px;
+    }
+    .why-card:hover .why-icon {
+      box-shadow:var(--glow-gold);
+      background:rgba(170,152,104,0.15);
+    }
+    .why-icon svg { width:28px; height:28px; }
+    .why-name {
+      font-family:var(--font-head);
+      font-size:1.15rem; font-weight:700;
+      letter-spacing:0.06em;
+      margin-bottom:12px;
+    }
+    .why-desc { font-size:0.9rem; color:var(--white-dim); line-height:1.65; }
+
+    /* =============================================
+       7. TESTIMONIALS
+    ============================================= */
+    #testimonials {
+      padding:120px 0;
+      background:var(--dark-bg);
+    }
+    .testi-header { text-align:center; max-width:600px; margin:0 auto 60px; }
+    .testi-slider-wrap { position:relative; overflow:hidden; }
+    .testi-track {
+      display:flex; gap:24px;
+      transition:transform .6s var(--ease-out);
+    }
+    .testi-card {
+      min-width:calc(33.333% - 16px);
+      background:var(--glass-bg);
+      border:1px solid var(--glass-border);
+      backdrop-filter:blur(10px);
+      padding:40px 32px;
+      position:relative;
+      flex-shrink:0;
+    }
+    .testi-card::before {
+      content:'"';
+      position:absolute; top:18px; left:28px;
+      font-family:var(--font-display);
+      font-size:6rem; line-height:1;
+      color:var(--primary-gold); opacity:.25;
+    }
+    .testi-stars {
+      display:flex; gap:4px; margin-bottom:18px;
+      color:var(--primary-gold); font-size:0.9rem;
+    }
+    .testi-text {
+      font-size:0.95rem; line-height:1.7;
+      color:var(--white-dim); margin-bottom:24px;
+    }
+    .testi-author {
+      display:flex; align-items:center; gap:14px;
+    }
+    .testi-avatar {
+      width:46px; height:46px; border-radius:50%;
+      background:linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-head); font-weight:800; font-size:1rem;
+    }
+    .testi-name {
+      font-family:var(--font-head);
+      font-weight:700; font-size:0.95rem;
+      margin-bottom:2px;
+    }
+    .testi-role {
+      font-size:0.78rem; color:var(--white-dim);
+      letter-spacing:0.08em;
+    }
+    .testi-dots {
+      display:flex; gap:8px; justify-content:center; margin-top:32px;
+    }
+    .testi-dot {
+      width:24px; height:3px; background:var(--glass-border);
+      border:none; transition:background .3s, width .3s;
+    }
+    .testi-dot.active { background:var(--primary-gold); width:44px; }
+
+    /* =============================================
+       8. CONTACT
+    ============================================= */
+    #contact {
+      padding:120px 0;
+      background:var(--card-bg);
+    }
+    .contact-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:72px;
+    }
+    .contact-info {}
+    .contact-info p {
+      font-size:1rem; color:var(--white-dim); line-height:1.7; margin-bottom:32px;
+    }
+    .contact-details {
+      display:flex; flex-direction:column; gap:20px;
+    }
+    .contact-item {
+      display:flex; gap:16px; align-items:flex-start;
+    }
+    .contact-item-icon {
+      width:42px; height:42px; flex-shrink:0;
+      background:rgba(170,152,104,0.1);
+      border:1px solid rgba(170,152,104,0.2);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--primary-gold);
+    }
+    .contact-item-icon svg { width:18px; height:18px; }
+    .contact-item-text { font-size:0.92rem; line-height:1.55; color:var(--white-dim); }
+    .contact-item-text strong { display:block; color:var(--white); font-family:var(--font-head); letter-spacing:0.06em; margin-bottom:2px; }
+
+    .contact-action-btns {
+      display:flex; gap:14px; flex-wrap:wrap; margin-top:32px;
+    }
+    .btn-whatsapp {
+      display:inline-flex; align-items:center; gap:9px;
+      padding:14px 28px;
+      background:#25D366;
+      color:#fff;
+      font-family:var(--font-head);
+      font-weight:700; font-size:0.82rem;
+      letter-spacing:0.15em; text-transform:uppercase;
+      border-radius:2px;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .btn-whatsapp:hover { transform:translateY(-3px); box-shadow:0 0 28px rgba(37,211,102,0.45); }
+    .btn-call {
+      display:inline-flex; align-items:center; gap:9px;
+      padding:14px 28px;
+      background:transparent;
+      border:1.5px solid var(--primary-gold);
+      color:var(--white);
+      font-family:var(--font-head);
+      font-weight:600; font-size:0.82rem;
+      letter-spacing:0.15em; text-transform:uppercase;
+      border-radius:2px;
+      transition:background .25s, transform .25s;
+    }
+    .btn-call:hover { background:var(--primary-gold); color:#000; transform:translateY(-3px); }
+
+    .contact-form {
+      display:flex; flex-direction:column; gap:16px;
+    }
+    .form-group { display:flex; flex-direction:column; gap:7px; }
+    .form-group label {
+      font-family:var(--font-head);
+      font-size:0.72rem; letter-spacing:0.2em;
+      text-transform:uppercase; color:var(--white-dim);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      background:var(--glass-bg);
+      border:1px solid var(--glass-border);
+      color:var(--white);
+      padding:13px 16px;
+      font-family:var(--font-body);
+      font-size:0.95rem;
+      outline:none;
+      transition:border-color .25s, box-shadow .25s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color:var(--primary-gold);
+      box-shadow:0 0 0 3px rgba(170,152,104,0.12);
+    }
+    .form-group textarea { resize:vertical; min-height:130px; }
+    .form-group select option { background:var(--card-bg); }
+    .form-submit {
+      padding:15px; background:linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      color:#000; border:none;
+      font-family:var(--font-head); font-weight:700;
+      font-size:0.88rem; letter-spacing:0.22em;
+      text-transform:uppercase;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .form-submit:hover { transform:translateY(-2px); box-shadow:var(--glow-gold); }
+
+    .map-placeholder {
+      margin-top:32px;
+      height:220px;
+      background:linear-gradient(135deg,var(--dark-bg),var(--card-bg));
+      border:1px solid var(--glass-border);
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; gap:10px;
+    }
+    .map-placeholder svg { opacity:.2; width:44px; height:44px; }
+    .map-placeholder span {
+      font-family:var(--font-head);
+      font-size:0.72rem; letter-spacing:0.2em;
+      text-transform:uppercase; opacity:.35;
+    }
+    /* ← REPLACE with: <iframe src="YOUR_GOOGLE_MAPS_EMBED_URL" ...></iframe> */
+
+    /* =============================================
+       9. FOOTER
+    ============================================= */
+    footer {
+      background:var(--dark-bg);
+      border-top:1px solid var(--glass-border);
+      padding:72px 0 32px;
+    }
+    .footer-grid {
+      display:grid;
+      grid-template-columns:1.6fr 1fr 1fr 1fr;
+      gap:48px; margin-bottom:60px;
+    }
+    .footer-brand {}
+    .footer-logo-mark {
+      display:inline-flex; align-items:center; gap:12px;
+      margin-bottom:18px;
+    }
+    .footer-logo-hex {
+      width:44px; height:44px;
+      background:linear-gradient(135deg,var(--primary-gold),var(--gold-dark));
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-head); font-weight:800;
+      border-radius:4px;
+      color:#000;
+    }
+    .footer-logo-text-wrap { font-family:var(--font-head); font-weight:700; letter-spacing:0.12em; }
+    .footer-logo-text-wrap small { display:block; font-size:0.6rem; letter-spacing:0.3em; color:var(--white-dim); font-weight:400; }
+    .footer-brand p { font-size:0.88rem; color:var(--white-dim); line-height:1.7; margin-bottom:20px; }
+    .footer-socials {
+      display:flex; gap:10px;
+    }
+    .social-btn {
+      width:38px; height:38px;
+      background:var(--glass-bg);
+      border:1px solid var(--glass-border);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--white-dim);
+      transition:background .25s, border-color .25s, color .25s, box-shadow .25s;
+    }
+    .social-btn:hover {
+      background:var(--primary-gold);
+      border-color:var(--primary-gold);
+      color:#000;
+      box-shadow:var(--glow-gold);
+    }
+    .social-btn svg { width:16px; height:16px; }
+    .footer-col h4 {
+      font-family:var(--font-head);
+      font-size:0.8rem; font-weight:700;
+      letter-spacing:0.28em; text-transform:uppercase;
+      color:var(--white); margin-bottom:22px;
+      position:relative; padding-bottom:12px;
+    }
+    .footer-col h4::after {
+      content:''; position:absolute; bottom:0; left:0;
+      width:28px; height:1.5px;
+      background:var(--primary-gold);
+    }
+    .footer-col ul { display:flex; flex-direction:column; gap:10px; }
+    .footer-col ul li a {
+      font-size:0.88rem; color:var(--white-dim);
+      transition:color .2s, padding-left .2s;
+      display:block;
+    }
+    .footer-col ul li a:hover { color:var(--primary-gold); padding-left:6px; }
+    .footer-bottom {
+      border-top:1px solid var(--glass-border);
+      padding-top:28px;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:12px;
+    }
+    .footer-copy {
+      font-size:0.8rem; color:var(--white-dim);
+      letter-spacing:0.06em;
+    }
+    .footer-copy span { color:var(--primary-gold); }
+    .footer-tagline {
+      font-family:var(--font-head);
+      font-size:0.7rem; letter-spacing:0.25em;
+      text-transform:uppercase; color:var(--white-dim);
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width:1024px) {
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .about-grid { gap:52px; }
+      .about-img-wrap { aspect-ratio:4/4; }
+      .why-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:860px) {
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      .mobile-nav { display:flex; }
+      .about-grid { grid-template-columns:1fr; }
+      .about-img-wrap { aspect-ratio:16/10; max-width:500px; margin:0 auto; }
+      .ai-inner { grid-template-columns:1fr; }
+      .contact-grid { grid-template-columns:1fr; }
+      .testi-card { min-width:calc(85% - 12px); }
+      .portfolio-grid { grid-template-columns:repeat(2,1fr); }
+      .portfolio-item.tall { grid-row:span 1; aspect-ratio:4/3; }
+    }
+    @media (max-width:600px) {
+      .counters-grid { grid-template-columns:1fr; }
+      .about-img-wrap { aspect-ratio:3/2; padding:8px; max-width:100%; }
+      .about-img-wrap img.placeholder-img { opacity:0.75; filter:grayscale(15%); }
+      .why-grid { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr; }
+      .portfolio-grid { grid-template-columns:1fr; }
+      .services-grid { grid-template-columns:1fr; }
+      .hero-btns { flex-direction:column; align-items:center; }
+      .about-badge-float { width:100px; height:100px; bottom:-16px; right:-12px; }
+      .about-badge-float strong { font-size:2rem; }
+    }
+
+    /* =============================================
+       PARALLAX BG ORBS
+    ============================================= */
+    .bg-orb {
+      position:absolute; border-radius:50%;
+      filter:blur(80px); pointer-events:none;
+    }
+    .orb-red { background:rgba(200,16,46,0.12); }
+    .orb-gold { background:rgba(212,160,23,0.07); }
+  </style>
+</head>
+<body>
+
+<!-- ======================= CURSOR ======================= -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ======================= LOADER ======================= -->
+<div id="loader">
+  <div class="loader-logo">MBM<span>.</span></div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<!-- ======================= NAV ======================= -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-mark">MBM</div>
+    <div class="nav-logo-text">
+      MBM MEDIA
+      <small>& ADVERTISING LLC</small>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#ai-mockup">AI Mockups</a></li>
+    <li><a href="#contact" class="nav-cta">Get Quote</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="#about"    onclick="closeMobileNav()">About</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#portfolio"onclick="closeMobileNav()">Portfolio</a>
+  <a href="#ai-mockup"onclick="closeMobileNav()">AI Mockups</a>
+  <a href="#contact"  onclick="closeMobileNav()">Contact</a>
+</nav>
+
+<!-- =============================================
+     SECTION 1: HERO
+============================================= -->
+<section id="hero">
+  <div class="hero-canvas">
+    <div class="particles-container" id="particles"></div>
+    <div class="hero-skyline"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Dubai's Premium Branding Agency</div>
+    <h1 class="hero-title">
+      Modern Branding &amp;<br><em>Advertising Solutions</em>
+    </h1>
+    <span class="hero-title-line2">Crafted for Dubai's Elite Businesses</span>
+    <p class="hero-sub">AI-Powered Visual Branding for Dubai Businesses — from concept to installation, we bring your brand to life with precision and impact.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-primary">View Portfolio</a>
+      <a href="#contact" class="btn-outline">Contact Us</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- =============================================
+     SECTION 2: ABOUT
+============================================= -->
+<section id="about">
+  <!-- bg orbs -->
+  <div class="bg-orb orb-red" style="width:500px;height:500px;top:-100px;right:-100px;"></div>
+  <div class="container">
+    <div class="about-grid">
+      <!-- Visual column -->
+      <div class="about-visual reveal">
+        <div class="about-stripe"></div>
+        <div class="about-img-wrap">
+          <img src="https://i.ibb.co/DfmLYcm3/Chat-GPT-Image-May-25-2026-03-25-28-PM.png" alt="MBM Media team at work" class="placeholder-img">
+        </div>
+        <div class="about-badge-float">
+          <strong>10+</strong>
+          <span>Years Exp.</span>
+        </div>
+      </div>
+      <!-- Text column -->
+      <div class="about-text">
+        <p class="section-tag reveal">Who We Are</p>
+        <h2 class="section-title reveal reveal-delay-1">
+          Dubai's Most Trusted<br><span class="gold">Branding Partner</span>
+        </h2>
+        <p class="reveal reveal-delay-2">MBM Media &amp; Advertising LLC is a full-service branding and signage company based in Jebel Ali, Dubai. We deliver premium signage, vehicle branding, exhibition graphics, and advertising solutions to businesses across the UAE.</p>
+        <p class="reveal reveal-delay-3">What sets us apart is our cutting-edge <strong style="color:var(--white)">AI-powered mockup workflow</strong>. We analyse your business premises or vehicles and generate hyper-realistic branding previews so you can visualise the final result before production even begins — saving time, cost, and guesswork.</p>
+        <div class="counters-grid reveal reveal-delay-4">
+          <div class="counter-cell">
+            <span class="counter-num" data-target="500">0</span>
+            <span class="counter-label">Projects Done</span>
+          </div>
+          <div class="counter-cell">
+            <span class="counter-num" data-target="98">0</span>
+            <span class="counter-label">% Satisfaction</span>
+          </div>
+          <div class="counter-cell">
+            <span class="counter-num" data-target="48">0</span>
+            <span class="counter-label">Hour Delivery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SECTION 3: SERVICES
+============================================= -->
+<section id="services">
+  <div class="bg-orb orb-gold" style="width:600px;height:600px;bottom:-200px;left:-200px;"></div>
+  <div class="container">
+    <div class="services-header">
+      <p class="section-tag reveal">What We Do</p>
+      <h2 class="section-title reveal reveal-delay-1">Premium Advertising<br><span class="red">Services</span></h2>
+      <p class="section-sub reveal reveal-delay-2">From bold shopfronts to fleet vehicle wraps — we execute every brand touchpoint with precision-grade craftsmanship.</p>
+    </div>
+    <div class="services-grid reveal">
+      <!-- Card 1 -->
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <div class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" /></svg>
+        </div>
+        <h3 class="service-name">Shop Signboards &amp; 3D Acrylic</h3>
+        <p class="service-desc">Eye-catching shopfront signage crafted from premium acrylic, aluminium, and steel — designed to make a lasting first impression.</p>
+        <div class="service-arrow">Learn More <span>→</span></div>
+      </div>
+      <!-- Card 2 -->
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <div class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zm10 0a2 2 0 11-4 0 2 2 0 014 0M1 1h4l2.68 13.39a2 2 0 001.98 1.61h9.72a2 2 0 001.98-1.61L23 6H6" /></svg>
+        </div>
+        <h3 class="service-name">Vehicle Branding</h3>
+        <p class="service-desc">Transform your fleet into mobile billboards with precision-cut vinyl wraps and full-body graphics that demand attention on every Dubai street.</p>
+        <div class="service-arrow">Learn More <span>→</span></div>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <div class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>
+        </div>
+        <h3 class="service-name">Wall Graphics &amp; Murals</h3>
+        <p class="service-desc">Large-format wall graphics and custom murals that transform blank commercial spaces into powerful brand statements.</p>
+        <div class="service-arrow">Learn More <span>→</span></div>
+      </div>
+      <!-- Card 4 -->
+      <div class="service-card">
+        <span class="service-num">04</span>
+        <div class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <h3 class="service-name">LED Signage</h3>
+        <p class="service-desc">High-brightness, energy-efficient LED channel letters and illuminated signs that keep your brand visible day and night across Dubai.</p>
+        <div class="service-arrow">Learn More <span>→</span></div>
+      </div>
+      <!-- Card 5 -->
+      <div class="service-card">
+        <span class="service-num">05</span>
+        <div class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" /></svg>
+        </div>
+        <h3 class="service-name">Window &amp; Frosted Stickers</h3>
+        <p class="service-desc">Frosted vinyl, one-way vision, and decorative window films that enhance privacy, aesthetics, and brand communication simultaneously.</p>
+        <div class="service-arrow">Learn More <span>→</span></div>
+      </div>
+      <!-- Card 6 -->
+      <div class="service-card">
+        <span class="service-num">06</span>
+        <div class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        </div>
+        <h3 class="service-name">Billboard &amp; Outdoor Advertising</h3>
+        <p class="service-desc">Strategically placed billboard campaigns and hoardings across Dubai and the UAE to maximise your brand's outdoor reach.</p>
+        <div class="service-arrow">Learn More <span>→</span></div>
+      </div>
+      <!-- Card 7 -->
+      <div class="service-card">
+        <span class="service-num">07</span>
+        <div class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+        </div>
+        <h3 class="service-name">Exhibition &amp; Reception Branding</h3>
+        <p class="service-desc">Roll-up banners, exhibition stands, backdrop displays, and corporate reception signage — complete event branding solutions.</p>
+        <div class="service-arrow">Learn More <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SECTION 4: PORTFOLIO
+============================================= -->
+<section id="portfolio">
+  <div class="container">
+    <div class="portfolio-header">
+      <p class="section-tag reveal">Our Work</p>
+      <h2 class="section-title reveal reveal-delay-1">Portfolio of<br><span class="gold">Excellence</span></h2>
+    </div>
+
+    <div class="portfolio-grid reveal">
+      <!-- All Portfolio Images - Gallery View -->
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/3y674txy/window-branding-1.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/m5n09M95/window-branding-1.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/4nz0VV7r/window-branding-2.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/TBMK3WCK/window-branding-3.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/SXL8VhKS/window-branding-4.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/5XG3MZ9w/window-branding-5.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/4Z2sgQRL/window-branding-1.webp" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/bjWCJ3ZJ/window-branding-6.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/vCqScZsY/window-branding-7.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/LzM6xWCC/window-branding-8.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/8DnXdY83/window-branding-9.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/3mK21qKG/window-branding-2.jpg" alt="Window Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Window Branding</h3><p class="p-desc">Premium Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/v4PwTx0S/sign-board-4.jpg" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/pj32mGd7/sign-board-5.jpg" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/1fhHsqgm/sign-board-6.jpg" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/Q3fLDC6j/sign-board-7.jpg" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/tMXCj01p/sign-board-1.jpg" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/nqQBh8yS/sign-board-2.jpg" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/gbyp0ck2/sign-board-1.webp" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/0R5YmkpH/sign-board-3.jpg" alt="Sign Board" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Sign Board</h3><p class="p-desc">3D Acrylic Signs</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/23K0hSJC/Billboard-1.jpg" alt="Billboard" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Billboard</h3><p class="p-desc">Outdoor Advertising</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/PGvm2LzG/Billboard-2.jpg" alt="Billboard" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Billboard</h3><p class="p-desc">Outdoor Advertising</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/tV0HKss/Billboard-3.jpg" alt="Billboard" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Billboard</h3><p class="p-desc">Outdoor Advertising</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/mV4dK5KH/Wall-Graphic-1.jpg" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/8L5tqGdS/Wall-Graphic-2.jpg" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/dXbvVMB/Wall-Graphic-3.jpg" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/pvqMzc4g/Wall-Graphic-1.png" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/mrV7HWxX/Wall-Graphic-4.jpg" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/ksbDv9RW/Wall-Graphic-5.jpg" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/gxmRLmN/Wall-Graphic-6.jpg" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/zhB0vST5/Wall-Graphic-7.jpg" alt="Wall Graphic" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Wall Graphic</h3><p class="p-desc">Murals & Graphics</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/3yyT7q4c/vehical-braning-1.png" alt="Vehicle Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Vehicle Branding</h3><p class="p-desc">Fleet Wraps</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/rGNtnGrN/vehical-braning-1.jpg" alt="Vehicle Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Vehicle Branding</h3><p class="p-desc">Fleet Wraps</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/8nNnxf8X/vehical-braning-2.jpg" alt="Vehicle Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Vehicle Branding</h3><p class="p-desc">Fleet Wraps</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/fddsvFgt/vehical-braning-3.jpg" alt="Vehicle Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Vehicle Branding</h3><p class="p-desc">Fleet Wraps</p></div><div class="p-zoom">+</div></div>
+      <div class="portfolio-item" onclick="openLightbox(this)"><img src="https://i.ibb.co/1YY9GyRp/vehical-braning-4.jpg" alt="Vehicle Branding" class="p-img"><div class="p-overlay"><span class="p-cat">Gallery</span><h3 class="p-title">Vehicle Branding</h3><p class="p-desc">Fleet Wraps</p></div><div class="p-zoom">+</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div class="lb-inner" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="closeLightbox()">×</button>
+    <img id="lb-img" src="" alt="Portfolio preview" />
+  </div>
+</div>
+
+<!-- =============================================
+     SECTION 5: AI MOCKUP
+============================================= -->
+<section id="ai-mockup">
+  <div class="bg-orb orb-red" style="width:400px;height:400px;top:50px;right:-80px;opacity:0.7;"></div>
+  <div class="container">
+    <div class="ai-inner">
+      <div class="ai-text">
+        <p class="section-tag reveal">Our Edge</p>
+        <h2 class="section-title reveal reveal-delay-1">How We Use<br><span class="gold">AI-Powered Mockups</span></h2>
+        <p class="reveal reveal-delay-2">We combine human creativity with artificial intelligence to deliver branding previews that feel real before they are. No more imagination required — see exactly how your brand will look, before you invest a single dirham in production.</p>
+        <div class="ai-steps">
+          <div class="ai-step reveal reveal-delay-2">
+            <div class="ai-step-num">01</div>
+            <div class="ai-step-body">
+              <h4>Business Photo Analysis</h4>
+              <p>Send us photos of your shop, vehicle, or office. Our AI analyses the geometry, lighting, and perspective automatically.</p>
+            </div>
+          </div>
+          <div class="ai-step reveal reveal-delay-3">
+            <div class="ai-step-num">02</div>
+            <div class="ai-step-body">
+              <h4>Realistic Mockup Generation</h4>
+              <p>We place your brand elements — logo, colours, typography — directly onto your space in photo-realistic quality.</p>
+            </div>
+          </div>
+          <div class="ai-step reveal reveal-delay-4">
+            <div class="ai-step-num">03</div>
+            <div class="ai-step-body">
+              <h4>WhatsApp / Email Delivery</h4>
+              <p>We send the mockup directly to your phone. Review, request changes, and approve — all before production starts.</p>
+            </div>
+          </div>
+          <div class="ai-step reveal reveal-delay-5">
+            <div class="ai-step-num">04</div>
+            <div class="ai-step-body">
+              <h4>Faster Client Approvals</h4>
+              <p>Because you see the final result upfront, approvals are faster, revisions are minimal, and execution is flawless.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ai-visual reveal reveal-delay-3">
+        <div class="ai-visual-frame">
+          <div class="ai-float-badge">AI Preview</div>
+          <div class="ai-phone-mock">
+            <div class="ai-phone-top"><div class="ai-phone-notch"></div></div>
+            <div class="ai-phone-screen">
+              <div class="chat-bubble received">Hi! Can you brand our shop in JLT? Here are the photos 📸</div>
+              <div class="chat-bubble sent delay-1">Received! Give us 2 hours — we'll send you a full AI mockup. 🔥</div>
+              <div class="chat-bubble received delay-2">WOW! This looks exactly how I imagined! Let's proceed ✅</div>
+              <div class="chat-bubble sent delay-3">Perfect! We'll begin production within 24 hours. 🚀</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SECTION 6: WHY CHOOSE US
+============================================= -->
+<section id="why">
+  <div class="container">
+    <div class="why-header">
+      <p class="section-tag reveal">Why MBM</p>
+      <h2 class="section-title reveal reveal-delay-1">The MBM<br><span class="red">Advantage</span></h2>
+      <p class="section-sub reveal reveal-delay-2">Every brand we touch is treated with the same obsessive attention to detail we'd give our own.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+        </div>
+        <h3 class="why-name">Premium Quality Materials</h3>
+        <p class="why-desc">We use only Grade-A vinyls, UV-resistant inks, and certified aluminium composites that withstand Dubai's extreme climate.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <h3 class="why-name">Fast 48-Hour Delivery</h3>
+        <p class="why-desc">From design approval to professional installation — most standard projects are completed within 48 hours.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        </div>
+        <h3 class="why-name">Expert Installation Team</h3>
+        <p class="why-desc">Our trained installers handle everything — from scaffolding coordination to final polish — with zero mess left behind.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+        </div>
+        <h3 class="why-name">AI-Powered Visualisation</h3>
+        <p class="why-desc">See your finished brand before production begins. Our AI mockup service eliminates guesswork and costly redesigns.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <h3 class="why-name">Dubai Market Expertise</h3>
+        <p class="why-desc">With deep knowledge of Dubai's regulatory requirements and aesthetic expectations, we keep your brand compliant and competitive.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-5">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
+        </div>
+        <h3 class="why-name">Creative Branding Solutions</h3>
+        <p class="why-desc">From concept to completion, our design team creates unique, impactful brand identities tailored to your industry and audience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SECTION 7: TESTIMONIALS
+============================================= -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testi-header">
+      <p class="section-tag reveal">Client Reviews</p>
+      <h2 class="section-title reveal reveal-delay-1">What Our Clients<br><span class="gold">Say About Us</span></h2>
+    </div>
+    <div class="testi-slider-wrap reveal">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"MBM transformed our entire showroom with stunning LED signage and wall graphics. The AI mockup they sent us on WhatsApp was so realistic — we knew exactly what we were getting. Highly professional and fast delivery!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">A</div>
+            <div><div class="testi-name">Ahmed Al Rashidi</div><div class="testi-role">CEO, Al Rashidi Auto, Dubai</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"We had our entire delivery fleet of 12 vans wrapped by MBM. The quality is outstanding — two years later and the wraps still look brand new. Their installation team is incredibly clean and efficient."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">S</div>
+            <div><div class="testi-name">Sara Mendonça</div><div class="testi-role">Marketing Director, SwiftMove Logistics</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Absolutely world-class. They designed, produced, and installed our Gitex exhibition stand in under 72 hours. The stand was the talk of the hall. We'll use MBM for every exhibition from now on."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">R</div>
+            <div><div class="testi-name">Raj Patel</div><div class="testi-role">Founder, TechVision UAE</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"The frosted window branding for our clinic looks incredibly premium. MBM understood our brand immediately and delivered beyond expectations. I got the AI mockup approved in 10 minutes via WhatsApp!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">F</div>
+            <div><div class="testi-name">Dr. Fatima Hassan</div><div class="testi-role">Medical Director, Radiance Clinic, JVC</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Our new shopfront 3D acrylic sign has brought in so many compliments from customers. MBM's attention to detail is unmatched in Dubai. They turned a plain facade into a premium brand statement."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">K</div>
+            <div><div class="testi-name">Khalid Mohammed</div><div class="testi-role">Owner, Khalid Gourmet Bakery</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-dots" id="testiDots">
+      <button class="testi-dot active"></button>
+      <button class="testi-dot"></button>
+      <button class="testi-dot"></button>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SECTION 8: CONTACT
+============================================= -->
+<section id="contact">
+  <div class="bg-orb orb-gold" style="width:500px;height:500px;bottom:-100px;right:-150px;"></div>
+  <div class="container">
+    <div style="margin-bottom:60px;">
+      <p class="section-tag reveal">Get In Touch</p>
+      <h2 class="section-title reveal reveal-delay-1">Start Your<br><span class="gold">Branding Journey</span></h2>
+    </div>
+    <div class="contact-grid">
+      <!-- Contact Info -->
+      <div class="contact-info reveal">
+        <p>Ready to elevate your brand? Reach out to Ashan and our team — we'll have an AI mockup in your inbox within hours.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <strong>Our Location</strong>
+              WH-06, Jebel Ali Industrial 1,<br>
+              Jumbo Service Centre Compound,<br>
+              Dubai, UAE
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <strong>Call Ashan</strong>
+              <a href="tel:+971524186102" style="color:var(--gold);">+971 52 418 6102</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <strong>Email Us</strong>
+              <!-- ★ REPLACE with your real email -->
+              <a href="mailto:info@mbmmedia.ae" style="color:var(--gold);">info@mbmmedia.ae</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-action-btns">
+          <a href="https://wa.me/971524186102?text=Hello%20MBM%20Media!%20I%20would%20like%20a%20quote%20for%20branding%20services." target="_blank" class="btn-whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="tel:+971524186102" class="btn-call">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            Call Now
+          </a>
+        </div>
+        <!-- Google Maps Embed -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.449554220624!2d55.116161976038235!3d24.984835877848212!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f0db30c86ea71%3A0xf8ed78859a486f0f!2sMBM%20Media%20%26%20Advertising%20LLC!5e0!3m2!1sen!2sae!4v1779707972851!5m2!1sen!2sae" width="100%" height="220" style="border:0; margin-top:32px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form reveal reveal-delay-2">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" placeholder="+971 XX XXX XXXX" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Service Required</label>
+          <select>
+            <option>Select a service...</option>
+            <option>Shop Signboard / 3D Acrylic</option>
+            <option>LED Signage</option>
+            <option>Vehicle Branding</option>
+            <option>Wall Graphics / Mural</option>
+            <option>Window / Frosted Stickers</option>
+            <option>Billboard Advertising</option>
+            <option>Exhibition Branding</option>
+            <option>Other / Multiple Services</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message / Project Details</label>
+          <textarea placeholder="Tell us about your project, location, and timeline..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleFormSubmit(event)">Send Enquiry →</button>
+        <p id="form-success" style="display:none;color:var(--gold);font-family:var(--font-head);letter-spacing:0.12em;margin-top:12px;font-size:0.85rem;">✓ Message sent! We'll respond within 2 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SECTION 9: FOOTER
+============================================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <div class="footer-logo-mark">
+          <div class="footer-logo-hex">MBM</div>
+          <div class="footer-logo-text-wrap">
+            MBM MEDIA
+            <small>& ADVERTISING LLC</small>
+          </div>
+        </div>
+        <p>Dubai's premier signage and branding studio, delivering luxury advertising solutions with AI-powered precision since day one.</p>
+        <div class="footer-socials">
+          <!-- Instagram -->
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" class="social-btn" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/971524186102" target="_blank" class="social-btn" aria-label="WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Our Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#ai-mockup">AI Mockups</a></li>
+          <li><a href="#why">Why MBM</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <!-- Services -->
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Shop Signboards</a></li>
+          <li><a href="#services">3D Acrylic Signs</a></li>
+          <li><a href="#services">LED Signage</a></li>
+          <li><a href="#services">Vehicle Branding</a></li>
+          <li><a href="#services">Wall Graphics</a></li>
+          <li><a href="#services">Billboard Advertising</a></li>
+          <li><a href="#services">Exhibition Branding</a></li>
+        </ul>
+      </div>
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+971524186102">+971 52 418 6102</a></li>
+          <li><a href="mailto:info@mbmmedia.ae">info@mbmmedia.ae</a></li>
+          <li><a href="#contact">WH-06, Jebel Ali Industrial 1</a></li>
+          <li><a href="#contact">Jumbo Service Centre</a></li>
+          <li><a href="#contact">Dubai, UAE</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 <span>MBM Media &amp; Advertising LLC</span>. All Rights Reserved.</p>
+      <p class="footer-tagline">Crafted in Dubai · Built for Excellence</p>
+    </div>
+  </div>
+</footer>
+
+<!-- =============================================
+     JAVASCRIPT
+============================================= -->
+<script>
+  /* ---- LOADER ---- */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 800);
+  });
+
+  /* ---- CUSTOM CURSOR ---- */
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  /* ---- NAVBAR SCROLL ---- */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* ---- HAMBURGER / MOBILE NAV ---- */
+  const ham = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+
+  function closeMobileNav() {
+    ham.classList.remove('open');
+    mobileNav.classList.remove('open');
+  }
+
+  /* ---- PARTICLES ---- */
+  const pContainer = document.getElementById('particles');
+  function createParticle() {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left   = Math.random() * 100 + '%';
+    p.style.top    = 60 + Math.random() * 35 + '%';
+    const size     = 1 + Math.random() * 3;
+    p.style.width  = size + 'px';
+    p.style.height = size + 'px';
+    p.style.background = Math.random() > 0.5 ? 'var(--gold)' : 'rgba(200,16,46,0.8)';
+    const dur = 4 + Math.random() * 5;
+    p.style.animationDuration  = dur + 's';
+    p.style.animationDelay     = Math.random() * 2 + 's';
+    pContainer.appendChild(p);
+    setTimeout(() => p.remove(), (dur + 2) * 1000);
+  }
+  setInterval(createParticle, 600);
+  for (let i = 0; i < 10; i++) createParticle();
+
+  /* ---- SCROLL REVEAL ---- */
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  /* ---- COUNTER ANIMATION ---- */
+  function animateCounter(el, target) {
+    let current = 0;
+    const step  = target / 65;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current) + (el.dataset.target >= 98 ? '' : '+');
+    }, 22);
+  }
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        animateCounter(el, parseInt(el.dataset.target));
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter-num').forEach(el => counterObserver.observe(el));
+
+  /* ---- LIGHTBOX ---- */
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lb-img');
+
+  function openLightbox(item) {
+    const img = item.querySelector('.p-img');
+    if (img) {
+      lbImg.src = img.src;
+      lbImg.alt = item.querySelector('.p-title')?.textContent || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ---- TESTIMONIAL SLIDER ---- */
+  const track = document.getElementById('testiTrack');
+  const dots  = document.querySelectorAll('.testi-dot');
+  let current = 0;
+  const total = 3; // number of dot positions
+
+  function getCardWidth() {
+    const card = track.querySelector('.testi-card');
+    if (!card) return 0;
+    const gap = 24;
+    return card.offsetWidth + gap;
+  }
+
+  function goTo(idx) {
+    current = idx;
+    const offset = getCardWidth() * idx;
+    track.style.transform = `translateX(-${offset}px)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  let autoSlide = setInterval(() => {
+    goTo((current + 1) % total);
+  }, 4500);
+
+  track.addEventListener('mouseenter', () => clearInterval(autoSlide));
+  track.addEventListener('mouseleave', () => {
+    autoSlide = setInterval(() => goTo((current + 1) % total), 4500);
+  });
+
+  /* ---- FORM SUBMIT ---- */
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const successMsg = document.getElementById('form-success');
+    successMsg.style.display = 'block';
+    setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
+  }
+
+  /* ---- SMOOTH PARALLAX BG ORBS ---- */
+  const orbs = document.querySelectorAll('.bg-orb');
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    orbs.forEach((orb, i) => {
+      const speed = i % 2 === 0 ? 0.05 : -0.04;
+      orb.style.transform = `translateY(${sy * speed}px)`;
+    });
+  });
+</script>
+</body>
+</html>
